@@ -10,7 +10,6 @@
 #define DEBUG
 // END_PREFERENCES
 // BEGIN_INCLUDE
-#include "code/__HELPERS/russian.dm"
 #include "_maps\__MAP_DEFINES.dm"
 #include "_maps\cyberiad.dm"
 #include "code\_compile_options.dm"
@@ -86,6 +85,7 @@
 #include "code\__HELPERS\names.dm"
 #include "code\__HELPERS\pronouns.dm"
 #include "code\__HELPERS\qdel.dm"
+#include "code\__HELPERS\russian.dm"
 #include "code\__HELPERS\sanitize_values.dm"
 #include "code\__HELPERS\text.dm"
 #include "code\__HELPERS\time.dm"
