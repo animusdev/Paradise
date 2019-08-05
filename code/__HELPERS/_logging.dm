@@ -12,15 +12,15 @@
 #define SEND_SOUND(target, sound) DIRECT_OUTPUT(target, sound)
 #define SEND_TEXT(target, text) DIRECT_OUTPUT(target, text)
 #define WRITE_FILE(file, text) DIRECT_OUTPUT(file, text)
-#define WRITE_LOG(log, text) call(RUST_G, "log_write")(log, text)
+#define WRITE_LOG(log, text) return 0//call(RUST_G, "log_write")(log, text)
 
 /proc/error(msg)
-	log_world("## ERROR: [msg]")
+	WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: ## ERROR: [msg]")
 
 //print a warning message to world.log
 #define WARNING(MSG) warning("[MSG] in [__FILE__] at line [__LINE__] src: [src] usr: [usr].")
 /proc/warning(msg)
-	log_world("## WARNING: [msg]")
+	WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: ## WARNING: [msg]")
 
 //print a testing-mode debug message to world.log and world
 #ifdef TESTING
@@ -32,11 +32,11 @@
 /proc/log_admin(text)
 	admin_log.Add(text)
 	if(config.log_admin)
-		WRITE_LOG(GLOB.world_game_log, "ADMIN: [text][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: ADMIN: [text][log_end]")
 
 /proc/log_debug(text)
 	if(config.log_debug)
-		WRITE_LOG(GLOB.world_game_log, "DEBUG: [text][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: DEBUG: [text][log_end]")
 
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_DEBUG, 0, C.mob) && (C.prefs.toggles & CHAT_DEBUGLOGS))
@@ -44,101 +44,101 @@
 
 /proc/log_game(text)
 	if(config.log_game)
-		WRITE_LOG(GLOB.world_game_log, "GAME: [text][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: GAME: [text][log_end]")
 
 /proc/log_vote(text)
 	if(config.log_vote)
-		WRITE_LOG(GLOB.world_game_log, "VOTE: [text][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: VOTE: [text][log_end]")
 
 /proc/log_access_in(client/new_client)
 	if(config.log_access)
 		var/message = "[key_name(new_client)] - IP:[new_client.address] - CID:[new_client.computer_id] - BYOND v[new_client.byond_version]"
-		WRITE_LOG(GLOB.world_game_log, "ACCESS IN: [message][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: ACCESS IN: [message][log_end]")
 
 /proc/log_access_out(mob/last_mob)
 	if(config.log_access)
 		var/message = "[key_name(last_mob)] - IP:[last_mob.lastKnownIP] - CID:[last_mob.computer_id] - BYOND Logged Out"
-		WRITE_LOG(GLOB.world_game_log, "ACCESS OUT: [message][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: ACCESS OUT: [message][log_end]")
 
 /proc/log_say(text, mob/speaker)
 	if(config.log_say)
-		WRITE_LOG(GLOB.world_game_log, "SAY: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: SAY: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
 
 /proc/log_whisper(text, mob/speaker)
 	if(config.log_whisper)
-		WRITE_LOG(GLOB.world_game_log, "WHISPER: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: WHISPER: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
 
 /proc/log_ooc(text, client/user)
 	if(config.log_ooc)
-		WRITE_LOG(GLOB.world_game_log, "OOC: [user.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: OOC: [user.simple_info_line()]: [html_decode(text)][log_end]")
 
 /proc/log_aooc(text, client/user)
 	if(config.log_ooc)
-		WRITE_LOG(GLOB.world_game_log, "AOOC: [user.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: AOOC: [user.simple_info_line()]: [html_decode(text)][log_end]")
 
 /proc/log_looc(text, client/user)
 	if(config.log_ooc)
-		WRITE_LOG(GLOB.world_game_log, "LOOC: [user.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: LOOC: [user.simple_info_line()]: [html_decode(text)][log_end]")
 
 /proc/log_emote(text, mob/speaker)
 	if(config.log_emote)
-		WRITE_LOG(GLOB.world_game_log, "EMOTE: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: EMOTE: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
 
 /proc/log_attack(attacker, defender, message)
 	if(config.log_attack)
-		WRITE_LOG(GLOB.world_game_log, "ATTACK: [attacker] against [defender]: [message][log_end]") //Seperate attack logs? Why?
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: ATTACK: [attacker] against [defender]: [message][log_end]") //Seperate attack logs? Why?
 
 /proc/log_adminsay(text, mob/speaker)
 	if(config.log_adminchat)
-		WRITE_LOG(GLOB.world_game_log, "ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
 
 /proc/log_qdel(text)
-	WRITE_LOG(GLOB.world_qdel_log, "QDEL: [text]")
+	WRITE_FILE(GLOB.world_qdel_log, "\[[time_stamp()]]: QDEL: [text]")
 
 /proc/log_mentorsay(text, mob/speaker)
 	if(config.log_adminchat)
-		WRITE_LOG(GLOB.world_game_log, "MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
 
 /proc/log_ghostsay(text, mob/speaker)
 	if(config.log_say)
-		WRITE_LOG(GLOB.world_game_log, "DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
 
 /proc/log_ghostemote(text, mob/speaker)
 	if(config.log_emote)
-		WRITE_LOG(GLOB.world_game_log, "DEADEMOTE: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: DEADEMOTE: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
 
 /proc/log_adminwarn(text)
 	if(config.log_adminwarn)
-		WRITE_LOG(GLOB.world_game_log, "ADMINWARN: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: ADMINWARN: [html_decode(text)][log_end]")
 
 /proc/log_pda(text, mob/speaker)
 	if(config.log_pda)
-		WRITE_LOG(GLOB.world_game_log, "PDA: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: PDA: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
 
 /proc/log_chat(text, mob/speaker)
 	if(config.log_pda)
-		WRITE_LOG(GLOB.world_game_log, "CHAT: [speaker.simple_info_line()] [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: CHAT: [speaker.simple_info_line()] [html_decode(text)][log_end]")
 
 /proc/log_misc(text)
-	WRITE_LOG(GLOB.world_game_log, "MISC: [text][log_end]")
+	WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: MISC: [text][log_end]")
 
 /proc/log_world(text)
 	SEND_TEXT(world.log, text)
 	if(config && config.log_world_output)
-		WRITE_LOG(GLOB.world_game_log, "WORLD: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: WORLD: [html_decode(text)][log_end]")
 
 /proc/log_runtime_txt(text) // different from /tg/'s log_runtime because our error handler has a log_runtime proc already that does other stuff
-	WRITE_LOG(GLOB.world_runtime_log, text)
+	WRITE_FILE(GLOB.world_runtime_log, "\[[time_stamp()]]: [text]")
 
 /proc/log_config(text)
-	WRITE_LOG(GLOB.config_error_log, text)
+	WRITE_FILE(GLOB.config_error_log, "\[[time_stamp()]]: [text]")
 	SEND_TEXT(world.log, text)
 
 /proc/log_href(text)
-	WRITE_LOG(GLOB.world_href_log, "HREF: [html_decode(text)]")
+	WRITE_FILE(GLOB.world_href_log, "\[[time_stamp()]]: HREF: [html_decode(text)]")
 
 /proc/log_asset(text)
-	WRITE_LOG(GLOB.world_asset_log, "ASSET: [text]")
+	WRITE_FILE(GLOB.world_asset_log, "\[[time_stamp()]]: ASSET: [text]")
 
 /**
  * Standardized method for tracking startup times.
@@ -156,11 +156,12 @@
 
 /* For logging round startup. */
 /proc/start_log(log)
-	WRITE_LOG(log, "Starting up.\n-------------------------")
+	WRITE_FILE(log, "\[[time_stamp()]]: Starting up.\n-------------------------")
 
 /* Close open log handles. This should be called as late as possible, and no logging should hapen after. */
 /proc/shutdown_logging()
-	call(RUST_G, "log_close_all")()
+	//call(RUST_G, "log_close_all")()
+	return 1
 
 // Helper procs for building detailed log lines
 
