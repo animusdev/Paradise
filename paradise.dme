@@ -10,7 +10,7 @@
 #define DEBUG
 // END_PREFERENCES
 // BEGIN_INCLUDE
-#include "code\__HELPERS\text_ru.dm"
+#include "code/_helpers/russian.dm"
 #include "_maps\__MAP_DEFINES.dm"
 #include "_maps\cyberiad.dm"
 #include "code\_compile_options.dm"
