@@ -57,7 +57,7 @@
 
 //Runs byond's sanitization proc along-side sanitize_simple
 /proc/sanitize(var/t,var/list/repl_chars = null)
-	return rhtml_encode(sanitize_simple(t,repl_chars))
+	return html_encode(sanitize_simple(t,repl_chars))
 
 // Gut ANYTHING that isnt alphanumeric, or brackets
 /proc/paranoid_sanitize(t)
@@ -78,14 +78,14 @@
 /proc/stripped_multiline_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
 	var/name = input(user, message, title, default) as message|null
 	if(no_trim)
-		return copytext(rhtml_encode(name), 1, max_length)
+		return copytext(html_encode(name), 1, max_length)
 	else
-		return trim(rhtml_encode(name), max_length)
+		return trim(html_encode(name), max_length)
 
 //Runs byond's sanitization proc along-side strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
 /proc/adminscrub(var/t,var/limit=MAX_MESSAGE_LEN)
-	return copytext((rhtml_encode(strip_html_simple(t))),1,limit)
+	return copytext((html_encode(strip_html_simple(t))),1,limit)
 
 
 //Returns null if there is any bad text in the string
@@ -105,9 +105,9 @@
 /proc/stripped_input(mob/user, message = "", title = "", default = "", max_length=MAX_MESSAGE_LEN, no_trim=FALSE)
 	var/name = input(user, message, title, default) as text|null
 	if(no_trim)
-		return copytext(rhtml_encode(name), 1, max_length)
+		return copytext(html_encode(name), 1, max_length)
 	else
-		return trim(rhtml_encode(name), max_length) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
+		return trim(html_encode(name), max_length) //trim is "outside" because html_encode can expand single symbols into multiple symbols (such as turning < into &lt;)
 
 // Uses client.typing to check if the popup should appear or not
 /proc/typing_input(mob/user, message = "", title = "", default = "")
@@ -294,7 +294,7 @@ proc/checkhtml(var/t)
 
 //Returns a string with the first element of the string capitalized.
 /proc/capitalize(var/t as text)
-	return ruppertext(copytext(t, 1, 2)) + copytext(t, 2)
+	return uppertext(copytext(t, 1, 2)) + copytext(t, 2)
 
 //Centers text by adding spaces to either side of the string.
 /proc/dd_centertext(message, length)
@@ -397,13 +397,13 @@ proc/checkhtml(var/t)
 		if(!lentext(string))
 			return "\[...\]"
 		else
-			return rhtml_encode(string) //NO DECODED HTML YOU CHUCKLEFUCKS
+			return html_encode(string) //NO DECODED HTML YOU CHUCKLEFUCKS
 	else
 		return "[copytext_preserve_html(string, 1, 37)]..."
 
 //alternative copytext() for encoded text, doesn't break html entities (&#34; and other)
 /proc/copytext_preserve_html(var/text, var/first, var/last)
-	return rhtml_encode(copytext(html_decode(text), first, last))
+	return html_encode(copytext(html_decode(text), first, last))
 
 //Run sanitize(), but remove <, >, " first to prevent displaying them as &gt; &lt; &34; in some places, after html_encode().
 //Best used for sanitize object names, window titles.
@@ -534,7 +534,7 @@ proc/checkhtml(var/t)
 				text = "<font face=\"[deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
 			else
 				text = "<font face=\"[deffont]\">[text]</font>"
-
+    
 	text = copytext(text, 1, MAX_PAPER_MESSAGE_LEN)
 	return text
 

@@ -67,7 +67,7 @@ proc/get_radio_key_from_channel(var/channel)
 			continue
 
 		if((HULK in mutations) && health >= 25)
-			S.message = "[ruppertext(S.message)]!!!"
+			S.message = "[uppertext(S.message)]!!!"
 			verb = pick("yells", "roars", "hollers")
 
 		if(slurring)

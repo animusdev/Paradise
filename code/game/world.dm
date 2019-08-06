@@ -341,7 +341,7 @@ var/world_topic_spam_protect_time = world.timeofday
 
 /world/proc/load_motd()
 	join_motd = file2text("config/motd.txt")
-	GLOB.join_tos = russian_to_cp1251(file2text("config/tos.txt"))
+	GLOB.join_tos = file2text("config/tos.txt")
 
 /proc/load_configuration()
 	config = new /datum/configuration()
