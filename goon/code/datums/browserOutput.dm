@@ -121,11 +121,11 @@ var/list/chatResources = list(
 
 /datum/chatOutput/proc/ehjax_send(var/client/C = owner, var/window = "browseroutput", var/data)
 	if(islist(data))
-		data = json_encode(data)
+		data = r_json_encode(data)
 	C << output("[data]", "[window]:ehjaxCallback")
 
 /datum/chatOutput/proc/loadAdmin()
-	var/data = json_encode(list("loadAdminCode" = replacetext(replacetext(file2text("goon/browserassets/html/adminOutput.html"), "\n", ""), "\t", "")))
+	var/data = r_json_encode(list("loadAdminCode" = replacetext(replacetext(file2text("goon/browserassets/html/adminOutput.html"), "\n", ""), "\t", "")))
 	ehjax_send(data = url_encode(data))
 
 /datum/chatOutput/proc/sendClientData()
@@ -133,7 +133,7 @@ var/list/chatResources = list(
 	deets["clientData"]["ckey"] = owner.ckey
 	deets["clientData"]["ip"] = owner.address
 	deets["clientData"]["compid"] = owner.computer_id
-	var/data = json_encode(deets)
+	var/data = r_json_encode(deets)
 	ehjax_send(data = data)
 
 /datum/chatOutput/proc/analyzeClientData(cookie = "")
