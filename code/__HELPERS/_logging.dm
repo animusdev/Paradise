@@ -62,27 +62,27 @@
 
 /proc/log_say(text, mob/speaker)
 	if(config.log_say)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: SAY: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: SAY: [speaker.simple_info_line()]: [rhtml_decode(text)][log_end]")
 
 /proc/log_whisper(text, mob/speaker)
 	if(config.log_whisper)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: WHISPER: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: WHISPER: [speaker.simple_info_line()]: [rhtml_decode(text)][log_end]")
 
 /proc/log_ooc(text, client/user)
 	if(config.log_ooc)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: OOC: [user.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: OOC: [user.simple_info_line()]: [rhtml_decode(text)][log_end]")
 
 /proc/log_aooc(text, client/user)
 	if(config.log_ooc)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: AOOC: [user.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: AOOC: [user.simple_info_line()]: [rhtml_decode(text)][log_end]")
 
 /proc/log_looc(text, client/user)
 	if(config.log_ooc)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: LOOC: [user.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: LOOC: [user.simple_info_line()]: [rhtml_decode(text)][log_end]")
 
 /proc/log_emote(text, mob/speaker)
 	if(config.log_emote)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: EMOTE: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: EMOTE: [speaker.simple_info_line()]: [rhtml_decode(text)][log_end]")
 
 /proc/log_attack(attacker, defender, message)
 	if(config.log_attack)
@@ -90,34 +90,34 @@
 
 /proc/log_adminsay(text, mob/speaker)
 	if(config.log_adminchat)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: ADMINSAY: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: ADMINSAY: [speaker.simple_info_line()]: [rhtml_decode(text)][log_end]")
 
 /proc/log_qdel(text)
 	WRITE_FILE(GLOB.world_qdel_log, "\[[time_stamp()]]: QDEL: [text]")
 
 /proc/log_mentorsay(text, mob/speaker)
 	if(config.log_adminchat)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: MENTORSAY: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: MENTORSAY: [speaker.simple_info_line()]: [rhtml_decode(text)][log_end]")
 
 /proc/log_ghostsay(text, mob/speaker)
 	if(config.log_say)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: DEADCHAT: [speaker.simple_info_line()]: [rhtml_decode(text)][log_end]")
 
 /proc/log_ghostemote(text, mob/speaker)
 	if(config.log_emote)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: DEADEMOTE: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: DEADEMOTE: [speaker.simple_info_line()]: [rhtml_decode(text)][log_end]")
 
 /proc/log_adminwarn(text)
 	if(config.log_adminwarn)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: ADMINWARN: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: ADMINWARN: [rhtml_decode(text)][log_end]")
 
 /proc/log_pda(text, mob/speaker)
 	if(config.log_pda)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: PDA: [speaker.simple_info_line()]: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: PDA: [speaker.simple_info_line()]: [rhtml_decode(text)][log_end]")
 
 /proc/log_chat(text, mob/speaker)
 	if(config.log_pda)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: CHAT: [speaker.simple_info_line()] [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: CHAT: [speaker.simple_info_line()] [rhtml_decode(text)][log_end]")
 
 /proc/log_misc(text)
 	WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: MISC: [text][log_end]")
@@ -125,7 +125,7 @@
 /proc/log_world(text)
 	SEND_TEXT(world.log, text)
 	if(config && config.log_world_output)
-		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: WORLD: [html_decode(text)][log_end]")
+		WRITE_FILE(GLOB.world_game_log, "\[[time_stamp()]]: WORLD: [rhtml_decode(text)][log_end]")
 
 /proc/log_runtime_txt(text) // different from /tg/'s log_runtime because our error handler has a log_runtime proc already that does other stuff
 	WRITE_FILE(GLOB.world_runtime_log, "\[[time_stamp()]]: [text]")
@@ -135,7 +135,7 @@
 	SEND_TEXT(world.log, text)
 
 /proc/log_href(text)
-	WRITE_FILE(GLOB.world_href_log, "\[[time_stamp()]]: HREF: [html_decode(text)]")
+	WRITE_FILE(GLOB.world_href_log, "\[[time_stamp()]]: HREF: [rhtml_decode(text)]")
 
 /proc/log_asset(text)
 	WRITE_FILE(GLOB.world_asset_log, "\[[time_stamp()]]: ASSET: [text]")

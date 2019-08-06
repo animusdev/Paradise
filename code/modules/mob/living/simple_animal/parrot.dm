@@ -711,14 +711,14 @@
 
 /mob/living/simple_animal/parrot/hear_say(list/message_pieces, var/verb = "says", var/italics = 0, var/mob/speaker = null)
 	if(speaker != src && prob(50))
-		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
+		parrot_hear(rhtml_decode(multilingual_to_message(message_pieces)))
 	..()
 
 
 
 /mob/living/simple_animal/parrot/hear_radio(list/message_pieces, var/verb="says", var/part_a, var/part_b, var/mob/speaker = null, var/hard_to_hear = 0, var/atom/follow_target)
 	if(speaker != src && prob(50))
-		parrot_hear(html_decode(multilingual_to_message(message_pieces)))
+		parrot_hear(rhtml_decode(multilingual_to_message(message_pieces)))
 	..()
 
 

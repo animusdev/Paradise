@@ -46,7 +46,7 @@
 
 	if(href_list["nano_err"]) //nano throwing errors
 		if(topic_debugging)
-			to_chat(src, "## NanoUI: " + html_decode(href_list["nano_err"]))//NANO DEBUG HOOK
+			to_chat(src, "## NanoUI: " + rhtml_decode(href_list["nano_err"]))//NANO DEBUG HOOK
 
 
 
@@ -401,12 +401,12 @@
 	if(custom_event_msg && custom_event_msg != "")
 		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
 		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-		to_chat(src, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
+		to_chat(src, "<span class='alert'>[rhtml_encode(custom_event_msg)]</span>")
 		to_chat(src, "<br>")
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
 		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>")
-	
+
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)

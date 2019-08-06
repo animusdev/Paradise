@@ -287,12 +287,12 @@ var/list/world_uplinks = list()
 		for(var/datum/data/record/L in data_core.general)
 			if(L.fields["id"] == id)
 				nanoui_data["exploit"] = list()  // Setting this to equal L.fields passes it's variables that are lists as reference instead of value.
-				nanoui_data["exploit"]["name"] =  html_encode(L.fields["name"])
-				nanoui_data["exploit"]["sex"] =  html_encode(L.fields["sex"])
-				nanoui_data["exploit"]["age"] =  html_encode(L.fields["age"])
-				nanoui_data["exploit"]["species"] =  html_encode(L.fields["species"])
-				nanoui_data["exploit"]["rank"] =  html_encode(L.fields["rank"])
-				nanoui_data["exploit"]["fingerprint"] =  html_encode(L.fields["fingerprint"])
+				nanoui_data["exploit"]["name"] =  rhtml_encode(L.fields["name"])
+				nanoui_data["exploit"]["sex"] =  rhtml_encode(L.fields["sex"])
+				nanoui_data["exploit"]["age"] =  rhtml_encode(L.fields["age"])
+				nanoui_data["exploit"]["species"] =  rhtml_encode(L.fields["species"])
+				nanoui_data["exploit"]["rank"] =  rhtml_encode(L.fields["rank"])
+				nanoui_data["exploit"]["fingerprint"] =  rhtml_encode(L.fields["fingerprint"])
 
 				nanoui_data["exploit_exists"] = 1
 				break

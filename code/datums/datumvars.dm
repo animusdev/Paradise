@@ -433,7 +433,7 @@
 
 	usr << browse(html, "window=variables[refid];size=475x650")
 
-#define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
+#define VV_HTML_ENCODE(thing) ( sanitize ? rhtml_encode(thing) : thing )
 /proc/debug_variable(name, value, level, var/datum/DA = null, sanitize = TRUE)
 	var/header
 	if(DA)
@@ -1234,25 +1234,25 @@
 		switch(Text)
 			if("brute")
 				if(ishuman(L))
-					var/mob/living/carbon/human/H = L	
+					var/mob/living/carbon/human/H = L
 					H.adjustBruteLoss(amount, robotic = TRUE)
 				else
 					L.adjustBruteLoss(amount)
-			if("fire")	
+			if("fire")
 				if(ishuman(L))
-					var/mob/living/carbon/human/H = L	
+					var/mob/living/carbon/human/H = L
 					H.adjustFireLoss(amount, robotic = TRUE)
 				else
 					L.adjustFireLoss(amount)
-			if("toxin")	
+			if("toxin")
 				L.adjustToxLoss(amount)
 			if("oxygen")
 				L.adjustOxyLoss(amount)
-			if("brain")	
+			if("brain")
 				L.adjustBrainLoss(amount)
-			if("clone")	
+			if("clone")
 				L.adjustCloneLoss(amount)
-			if("stamina") 
+			if("stamina")
 				L.adjustStaminaLoss(amount)
 			else
 				to_chat(usr, "You caused an error. DEBUG: Text:[Text] Mob:[L]")
@@ -1317,7 +1317,7 @@
 		if(prompt != "Yes")
 			return
 		L.Cut(index, index+1)
-		log_world("### ListVarEdit by [src]: /list's contents: REMOVED=[html_encode("[variable]")]")
+		log_world("### ListVarEdit by [src]: /list's contents: REMOVED=[rhtml_encode("[variable]")]")
 		log_admin("[key_name(src)] modified list's contents: REMOVED=[variable]")
 		message_admins("[key_name_admin(src)] modified list's contents: REMOVED=[variable]")
 		return TRUE

@@ -285,7 +285,7 @@
 				message_admins("PAPER: [key_name_admin(usr)] tried to use forbidden word in [src]: [bad].")
 				return
 */
-		t = html_encode(t)
+		t = rhtml_encode(t)
 		t = parsepencode(t, i, usr) // Encode everything from pencode to html
 
 		if(id!="end")

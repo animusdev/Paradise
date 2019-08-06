@@ -38,13 +38,13 @@
 /*
 Суть фикса TG UI:
 
-Все динамические данные попадают в TG UI в виде JSON-объектов. Объекты берутся из бьендопроцесса json_encode().
+Все динамические данные попадают в TG UI в виде JSON-объектов. Объекты берутся из бьендопроцесса r_json_encode().
 Вот только этот процесс считает, что на входе всегда CP1292, и переубедить его нельзя. Как результат, русские буквы кодируются в абракадабру.
 К тому же "буква 255" и тут выходит боком: бьенд режет её и символ за ней, принимая их за макрос.
 
 JSON на выходе - строго ASCII, строки закодированы в Unicode, все Unicode-символы имеют вид "\u0000", где 0000 - код символа.
 
-Процесс r_json_encode() - обёртка над json_encode().
+Процесс r_json_encode() - обёртка над r_json_encode().
 Перед энкодом он заменяет "я" на код. После энкода заменяет коды всех "кривых" символов на правильные руские, и TG UI начинают работать как надо.
 */
 
@@ -178,7 +178,7 @@ GLOBAL_LIST_INIT(rus_unicode_conversion,list(
 	"Ь" = "042c", "ь" = "044c",
 	"Э" = "042d", "э" = "044d",
 	"Ю" = "042e", "ю" = "044e",
-	"Я" = "042f", "я" = "044f",
+	"Я" = "042F", "я" = "044F",
 
 	"Ё" = "0401", "ё" = "0451"
 	))
@@ -217,7 +217,7 @@ GLOBAL_LIST_INIT(rus_unicode_fix,null)
 				sanitize_russian_list(list[i])
 
 
-// Фиксит русский Unicode в сгенерированных json_encode() JSON.
+// Фиксит русский Unicode в сгенерированных r_json_encode() JSON.
 /proc/r_json_encode(json_data)
 	if(!GLOB.rus_unicode_fix) // Генерируем табилцу замены
 		GLOB.rus_unicode_fix = list()
@@ -229,7 +229,7 @@ GLOBAL_LIST_INIT(rus_unicode_fix,null)
 			GLOB.rus_unicode_fix[copytext(json_encode(s), 2, -1)] = "\\u[GLOB.rus_unicode_conversion[s]]"
 
 	sanitize_russian_list(json_data)
-	var/json = json_encode(json_data)
+	var/json = r_json_encode(json_data)
 
 	for(var/s in GLOB.rus_unicode_fix)
 		json = replacetext(json, s, GLOB.rus_unicode_fix[s])

@@ -378,7 +378,7 @@
 		var/K = item_quants[i]
 		var/count = item_quants[K]
 		if(count > 0)
-			items.Add(list(list("display_name" = html_encode(capitalize(K)), "vend" = i, "quantity" = count)))
+			items.Add(list(list("display_name" = rhtml_encode(capitalize(K)), "vend" = i, "quantity" = count)))
 
 	if(items.len > 0)
 		data["contents"] = items
@@ -386,7 +386,7 @@
 	return data
 
 /obj/machinery/smartfridge/Topic(href, href_list)
-	if(..()) 
+	if(..())
 		return FALSE
 
 	var/mob/user = usr

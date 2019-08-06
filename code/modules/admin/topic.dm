@@ -3298,7 +3298,7 @@
 	else if(href_list["showdetails"])
 		if(!check_rights(R_ADMIN))
 			return
-		var/text = html_decode(href_list["showdetails"])
+		var/text = rhtml_decode(href_list["showdetails"])
 		usr << browse("<HTML><HEAD><TITLE>Details</TITLE></HEAD><BODY><TT>[replacetext(text, "\n", "<BR>")]</TT></BODY></HTML>",
 			"window=show_details;size=500x200")
 
@@ -3317,10 +3317,10 @@
 			var/title = ""
 			while(query_view_book.NextRow())
 				content = query_view_book.item[1]
-				title = html_encode(query_view_book.item[2])
+				title = rhtml_encode(query_view_book.item[2])
 
 			var/dat = "<pre><code>"
-			dat += "[html_encode(html_to_pencode(content))]"
+			dat += "[rhtml_encode(html_to_pencode(content))]"
 			dat += "</code></pre>"
 
 			var/datum/browser/popup = new(usr, "admin_view_book", "[title]", 700, 400)

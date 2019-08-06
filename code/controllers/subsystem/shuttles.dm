@@ -127,7 +127,7 @@ SUBSYSTEM_DEF(shuttle)
 			to_chat(user, "The emergency shuttle has been disabled by Centcom.")
 			return
 
-	call_reason = trim(html_encode(call_reason))
+	call_reason = trim(rhtml_encode(call_reason))
 
 	if(length(call_reason) < CALL_SHUTTLE_REASON_LENGTH)
 		to_chat(user, "You must provide a reason.")
@@ -140,9 +140,9 @@ SUBSYSTEM_DEF(shuttle)
 		var/priority_time = emergencyCallTime * 0.5
 		if(world.time - emergency_sec_level_time < priority_time)
 			extra_minutes = 5
-		emergency.request(null, 0.5 + extra_minutes / (emergencyCallTime / 600), signal_origin, html_decode(emergency_reason), 1)
+		emergency.request(null, 0.5 + extra_minutes / (emergencyCallTime / 600), signal_origin, rhtml_decode(emergency_reason), 1)
 	else
-		emergency.request(null, 1, signal_origin, html_decode(emergency_reason), 0)
+		emergency.request(null, 1, signal_origin, rhtml_decode(emergency_reason), 0)
 
 	log_game("[key_name(user)] has called the shuttle.")
 	message_admins("[key_name_admin(user)] has called the shuttle.")

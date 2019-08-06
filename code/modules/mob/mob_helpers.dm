@@ -182,7 +182,7 @@
 		S.message = stars(S.message, pr)
 
 /proc/slur(phrase, var/list/slurletters = ("'"))//use a different list as an input if you want to make robots slur with $#@%! characters
-	phrase = html_decode(phrase)
+	phrase = rhtml_decode(phrase)
 	var/leng=lentext(phrase)
 	var/counter=lentext(phrase)
 	var/newphrase=""
@@ -206,7 +206,7 @@
 	return newphrase
 
 /proc/stutter(n)
-	var/te = html_decode(n)
+	var/te = rhtml_decode(n)
 	var/t = ""//placed before the message. Not really sure what it's for.
 	n = length(n)//length of the entire word
 	var/p = null
@@ -229,7 +229,7 @@
 	return sanitize(copytext(t,1,MAX_MESSAGE_LEN))
 
 /proc/robostutter(n) //for robutts
-	var/te = html_decode(n)
+	var/te = rhtml_decode(n)
 	var/t = ""//placed before the message. Not really sure what it's for.
 	n = length(n)//length of the entire word
 	var/p = null
@@ -276,7 +276,7 @@
 
 
 proc/muffledspeech(phrase)
-	phrase = html_decode(phrase)
+	phrase = rhtml_decode(phrase)
 	var/leng=lentext(phrase)
 	var/counter=lentext(phrase)
 	var/newphrase=""
@@ -589,7 +589,7 @@ var/list/intents = list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM)
 		rename_character(oldname, newname)
 
 /proc/cultslur(n) // Inflicted on victims of a stun talisman
-	var/phrase = html_decode(n)
+	var/phrase = rhtml_decode(n)
 	var/leng = lentext(phrase)
 	var/counter=lentext(phrase)
 	var/newphrase=""

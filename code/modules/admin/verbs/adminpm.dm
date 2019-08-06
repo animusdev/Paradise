@@ -187,7 +187,7 @@
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>")
-	
+
 	//Check if the mob being PM'd has any open admin tickets.
 	var/tickets = list()
 	if(type == "Mentorhelp")
@@ -201,10 +201,10 @@
 	if(type == "Mentorhelp")
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
 			tickets = SSmentor_tickets.checkForTicket(src)
-	else // Ahelp 
+	else // Ahelp
 		if(check_rights(R_ADMIN|R_MOD, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
 			tickets = SStickets.checkForTicket(src)
-	
+
 	if(tickets)
 		for(var/datum/ticket/i in tickets)
 			i.addResponse(src, msg)
@@ -228,7 +228,7 @@
 		to_chat(src, "<span class='notice'>[msg]</span>")
 		return
 
-	send2adminirc("PlayerPM from [key_name(src)]: [html_decode(msg)]")
+	send2adminirc("PlayerPM from [key_name(src)]: [rhtml_decode(msg)]")
 
 	to_chat(src, "<font color='blue'>IRC PM to-<b>IRC-Admins</b>: [msg]</font>")
 

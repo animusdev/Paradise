@@ -21,7 +21,7 @@
 
 	to_chat(world, "<h1 class='alert'>Custom Event</h1>")
 	to_chat(world, "<h2 class='alert'>A custom event is starting. OOC Info:</h2>")
-	to_chat(world, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
+	to_chat(world, "<span class='alert'>[rhtml_encode(custom_event_msg)]</span>")
 	to_chat(world, "<br>")
 
 // normal verb for players to view info
@@ -36,7 +36,7 @@
 
 	to_chat(src, "<h1 class='alert'>Custom Event</h1>")
 	to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-	to_chat(src, "<span class='alert'>[html_encode(custom_event_msg)]</span>")
+	to_chat(src, "<span class='alert'>[rhtml_encode(custom_event_msg)]</span>")
 	to_chat(src, "<br>")
 
 //admin event info to be view by admins
@@ -65,7 +65,7 @@
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, "<h1 class='alert'>Custom Admin Event Info</h1>")
 			to_chat(X, "<h2 class='alert'>A custom event is starting. OOC Admin Info:</h2>")
-			to_chat(X, "<span class='alert'>[html_encode(custom_event_admin_msg)]</span>")
+			to_chat(X, "<span class='alert'>[rhtml_encode(custom_event_admin_msg)]</span>")
 			to_chat(X,"<br>")
 
 /client/proc/cmd_view_custom_event_info()
@@ -82,5 +82,5 @@
 
 	to_chat(src, "<h1 class='alert'>Custom Event Info</h1>")
 	to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-	to_chat(src, "<span class='alert'>[html_encode(custom_event_admin_msg)]</span>")
+	to_chat(src, "<span class='alert'>[rhtml_encode(custom_event_admin_msg)]</span>")
 	to_chat(src, "<br>")

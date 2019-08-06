@@ -5,7 +5,7 @@
 GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 // Custom Implementations for NTTC
 /* NTTC Configuration Datum
- * This is an abstract handler for the configuration loadout. It's set up like this both for ease of transfering in and out of the UI 
+ * This is an abstract handler for the configuration loadout. It's set up like this both for ease of transfering in and out of the UI
  * as well as allowing users to save and load configurations.
  */
 /datum/nttc_configuration
@@ -206,7 +206,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	/* Tables */
 	// regex = list()
 
-	/* Arrays */ 
+	/* Arrays */
 	firewall = list()
 
 
@@ -222,8 +222,8 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	. = list()
 	for(var/variable in to_serialize)
 		.[variable] = vars[variable]
-	. = json_encode(.)
-	
+	. = r_json_encode(.)
+
 // This loads a configuration from a JSON string.
 // Fucking broken as shit, someone help me fix this.
 /datum/nttc_configuration/proc/nttc_deserialize(text, obj/machinery/computer/telecomms/traffic/source, var/ckey)
@@ -256,7 +256,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 			if(!islist(variable))
 				return list()
 			// Insert html filtering for the regexes here if you're boring
-			var/newlist = json_decode(html_decode(json_encode(variable)))
+			var/newlist = json_decode(rhtml_decode(r_json_encode(variable)))
 			if(!islist(newlist))
 				return null
 			return newlist
@@ -272,17 +272,17 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 		signal.data["reject"] = TRUE
 		return
 
-	// Firewall 
+	// Firewall
 	// This must happen before anything else modifies the signal ["name"].
 	if(islist(firewall) && firewall.len > 0)
 		if(firewall.Find(signal.data["name"]))
 			signal.data["reject"] = 1
 
-	// All job and coloring shit 
+	// All job and coloring shit
 	if(toggle_job_color || toggle_name_color)
 		var/job = signal.data["job"]
 		job_class = all_jobs[job]
-		
+
 	if(toggle_name_color)
 		var/new_name = "<span class=\"[job_class]\">" + signal.data["name"] + "</span>"
 		signal.data["name"] = new_name
@@ -440,7 +440,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 			if(requires_unlock[href_list["array"]] && !source.unlocked)
 				return
 			var/new_value = input(user, "Provide a value for the new index.", "New Index") as text|null
-			if(new_value == null) 
+			if(new_value == null)
 				return
 			var/list/array = vars[href_list["array"]]
 			array.Add(new_value)
@@ -505,7 +505,7 @@ GLOBAL_DATUM_INIT(nttc_config, /datum/nttc_configuration, new())
 	var/byondSrc = "byond://?src=[ref.UID()];"
 	var/dat = "<script type='text/javascript'>"
 	dat += "window.byondSrc = '[byondSrc]';"
-	dat += "window.originalConfig = '[html_encode(initial_config)]';"
+	dat += "window.originalConfig = '[rhtml_encode(initial_config)]';"
 	dat += "window.updateConfig = function(config) { window.config = JSON.parse(config); window.reload_tab() };"
 	dat += "</script>"
 	return dat
