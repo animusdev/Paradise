@@ -149,7 +149,7 @@ var/list/chatResources = list(
 				var/list/row = connectionHistory[i]
 				if(!row || row.len < 3 || !(row["ckey"] && row["compid"] && row["ip"]))
 					return
-				if(world.IsBanned(row["ckey"], row["compid"], row["ip"], FALSE))
+				if(world.IsBanned(row["ckey"], row["compid"], row["ip"]))
 					found = row
 					break
 
@@ -266,13 +266,15 @@ var/to_chat_src
 
 		if(C && C.chatOutput)
 			if(C.chatOutput.broken)
+				message=r_text2ascii(message)
 				C << message
 				return
 
 			if(!C.chatOutput.loaded && C.chatOutput.messageQueue && islist(C.chatOutput.messageQueue))
 				C.chatOutput.messageQueue.Add(message)
 				return
-
+		
+		message = r_text2unicode(message)
 		// url_encode it TWICE, this way any UTF-8 characters are able to be decoded by the javascript.
 		var/output_message = "[url_encode(url_encode(message))]"
 		if(flag)
